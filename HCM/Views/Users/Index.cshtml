@@ -1,0 +1,50 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>Users list</h2>
+
+@if (User.IsInRole("admin"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">➕ Create a user</a>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job Title</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Role</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.JobTitle</td>
+                <td>@user.Department?.Name</td>
+                <td>@user.Salary.ToString("C")</td>
+                <td>@user.Role</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@user.Id">👁️</a>
+                    @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@user.Id">✏️</a>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@user.Id">🗑️</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Create user";
+}
+
+<h2>Create a new user</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group mt-3">
+        <label>First Name</label>
+        <input asp-for="FirstName" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Last Name</label>
+        <input asp-for="LastName" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Job Title</label>
+        <input asp-for="JobTitle" class="form-control" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Salary</label>
+        <input asp-for="Salary" class="form-control" type="number" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Role</label>
+        <select asp-for="Role" class="form-control" required>
+            <option value="">Choose a role</option>
+            <option>admin</option>
+            <option>manager</option>
+            <option>employee</option>
+        </select>
+    </div>
+    <div class="form-group mt-3">
+        <label>Password</label>
+        <input name="password" class="form-control" type="password" required />
+    </div>
+    <div class="form-group mt-3">
+        <label>Department</label>
+        <select asp-for="DepartmentId" class="form-control" required asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))">
+            <option value="">Choose a department</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">💾 Save</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">⬅️ Back</a>
+</form>
